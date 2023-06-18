@@ -21,7 +21,7 @@ app.post('/login',Controller.login)
 app.post('/sregister',Controller.specialRegister)
 app.post('/slogin',Controller.specialLogin)
 
-app.use(authentication)
+
 
 app.use(router)
 
