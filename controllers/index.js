@@ -124,7 +124,29 @@ class Controller {
   }
   static async getJob(req, res, next) {
     try {
-    } catch (error) {}
+      const { id } = req.params;
+      console.log(id);
+      const job = await Job.findByPk(id, {
+        include: [
+          Company,
+          {
+            model:Skill,
+            attributes:["name"]
+          },
+          {
+            model: UserJob,
+            attributes:["status"],
+            include: {
+              model: User,
+              attributes: ["first_name","last_name","profile_picture"],
+            },
+          },
+        ],
+      });
+      res.send(job);
+    } catch (error) {
+      res.send(error);
+    }
   }
   static async postJob(req, res, next) {
     const t = await sequelize.transaction();
